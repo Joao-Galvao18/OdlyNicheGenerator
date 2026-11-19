@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oddly Niche: Gerador de Desafios de Design</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <div class="janela-principal">
+    <!-- Barra de título clássica estilo Windows 95 -->
+    <header class="barra-titulo">
+      <div class="grupo-titulo">
+        <span class="icone-janela" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="1" y="1" width="14" height="14" fill="#d4d0c8" stroke="#111" stroke-width="1"/>
+            <rect x="2" y="2" width="12" height="3" fill="#0a246a"/>
+            <rect x="3" y="7" width="4" height="6" fill="#ff5e8e"/>
+            <rect x="8" y="7" width="5" height="3" fill="#ffd23f"/>
+            <rect x="8" y="11" width="5" height="2" fill="#3bceac"/>
+          </svg>
+        </span>
+        <h1>Oddly Niche <span class="subtitulo">Gerador de Desafios de Design</span></h1>
+        <a class="link-inspiracao" href="https://www.instagram.com/_madebymuck?utm_source=ig_web_button_share_sheet&amp;dmpr=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Inspired by &quot;Oddly Specific&quot; by @madebymuck</a>
+      </div>
+
+      <div class="controlos-topo">
+        <button id="botaoHistorico" class="botao-retro botao-topo" title="Abrir histórico e favoritos">
+          <svg class="icone-svg" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M1 3h5l2 2h7v9H1V3zm1 3v7h12V6H2z" fill="currentColor"/>
+          </svg>
+          <span>Arquivo (<span id="contadorArquivo">0</span>)</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Barra de filtros por disciplina -->
+    <div class="barra-ferramentas">
+      <div class="grupo-filtros">
+        <span class="etiqueta-barra">Área:</span>
+        <button class="botao-filtro ativo" data-disciplina="todas">Todas</button>
+        <button class="botao-filtro" data-disciplina="print">Print e Gráfico</button>
+        <button class="botao-filtro" data-disciplina="motion">Motion e Vídeo</button>
+        <button class="botao-filtro" data-disciplina="digital">Digital e UI</button>
+        <button class="botao-filtro" data-disciplina="packaging">Embalagem</button>
+      </div>
+      <div class="dica-teclado">
+        Prime <kbd>Espaço</kbd> para sortear novo desafio
+      </div>
+    </div>
+
+    <!-- Zona central que ocupa exatamente o resto da altura da janela -->
+    <main class="area-trabalho">
+      <div class="grelha-colunas">
+        <!-- Coluna 1: Formato -->
+        <section class="painel-coluna" data-coluna="formato">
+          <div class="cabecalho-coluna">
+            <span class="titulo-coluna">Formato</span>
+            <button class="botao-cadeado" data-cadeado="formato" title="Fixar esta coluna" aria-pressed="false"></button>
+          </div>
+          <div class="caixa-lista" id="lista-formato" role="listbox" aria-label="Formato"></div>
+        </section>
+
+        <!-- Coluna 2: Tema -->
+        <section class="painel-coluna" data-coluna="tema">
+          <div class="cabecalho-coluna">
+            <span class="titulo-coluna">Tema e Contexto</span>
+            <button class="botao-cadeado" data-cadeado="tema" title="Fixar esta coluna" aria-pressed="false"></button>
+          </div>
+          <div class="caixa-lista" id="lista-tema" role="listbox" aria-label="Tema e Contexto"></div>
+        </section>
+
+        <!-- Coluna 3: Estilo Niche -->
+        <section class="painel-coluna" data-coluna="estilo">
+          <div class="cabecalho-coluna">
+            <span class="titulo-coluna">Estilo Niche</span>
+            <button class="botao-cadeado" data-cadeado="estilo" title="Fixar esta coluna" aria-pressed="false"></button>
+          </div>
+          <div class="caixa-lista" id="lista-estilo" role="listbox" aria-label="Estilo Niche"></div>
+        </section>
+
+        <!-- Coluna 4: Cores inspiradas em... -->
+        <section class="painel-coluna" data-coluna="objetoCor">
+          <div class="cabecalho-coluna">
+            <span class="titulo-coluna">Cores de...</span>
+            <button class="botao-cadeado" data-cadeado="objetoCor" title="Fixar esta coluna" aria-pressed="false"></button>
+          </div>
+          <div class="caixa-lista" id="lista-objetoCor" role="listbox" aria-label="Cores de referência"></div>
+        </section>
+      </div>
+
+      <!-- Painel direito com paleta, links de pesquisa e notas do estilo -->
+      <aside class="painel-inspetor">
+        <div class="cabecalho-inspetor">Referência Visual e Paleta</div>
+        <div class="corpo-inspetor">
+          <div class="palco-cores" id="palcoCores" aria-label="Amostras de cor do objeto selecionado"></div>
+
+          <div class="bloco-meta-cor">
+            <h2 id="tituloObjetoCor">A carregar...</h2>
+            <p id="descricaoObjetoCor" class="texto-suave"></p>
+          </div>
+
+          <div class="linha-amostras" id="linhaAmostras"></div>
+
+          <div class="links-pesquisa">
+            <a id="linkGoogleImagens" href="#" target="_blank" rel="noopener noreferrer" class="botao-retro botao-link">
+              <svg class="icone-svg" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M6.5 1a5.5 5.5 0 1 0 3.4 9.8l3.7 3.7 1.4-1.4-3.7-3.7A5.5 5.5 0 0 0 6.5 1zm0 2a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z" fill="currentColor"/>
+              </svg>
+              <span>Ver no Google</span>
+            </a>
+            <a id="linkPinterest" href="#" target="_blank" rel="noopener noreferrer" class="botao-retro botao-link">
+              <svg class="icone-svg" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M9.5 1.5L14.5 6.5 13 8l-1.5-.5L8.5 10.5l.5 2L7.5 14 5 11.5 2 14.5 1.5 14l3-3L2 8.5 3.5 7l2 .5 3-3L8 3l1.5-1.5z" fill="currentColor"/>
+              </svg>
+              <span>Ver no Pinterest</span>
+            </a>
+          </div>
+
+          <div class="caixa-nota-estilo">
+            <div class="topo-nota-estilo">
+              <div class="etiqueta-estilo">Sobre o estilo: <strong id="tituloNotaEstilo"></strong></div>
+              <a id="linkPesquisarEstilo" href="#" target="_blank" rel="noopener noreferrer" class="link-mini" title="Ver exemplos deste estilo no Pinterest">Ver exemplos</a>
+            </div>
+            <p id="descricaoNotaEstilo"></p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Barra inferior de botões de ação -->
+    <section class="barra-acoes">
+      <button id="botaoGerar" class="botao-retro botao-principal">
+        <svg class="icone-svg" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M2 2h12v12H2V2zm2 2v8h8V4H4zm1 1h2v2H5V5zm4 0h2v2H9V5zM7 7h2v2H7V7zM5 9h2v2H5V9zm4 0h2v2H9V9z" fill="currentColor"/>
+        </svg>
+        <span>Gerar Desafio</span>
+      </button>
+
+      <div class="acoes-secundarias">
+        <button id="botaoFavorito" class="botao-retro botao-acao" title="Guardar nos favoritos"></button>
+
+        <button id="botaoCopiar" class="botao-retro botao-acao" title="Copiar texto do desafio">
+          <svg class="icone-svg" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 1h6v2h3v12H2V3h3V1zm1 1v2h4V2H6zM4 5v8h8V5h-1v1H5V5H4z" fill="currentColor"/>
+          </svg>
+          <span>Copiar Brief</span>
+        </button>
+
+        <button id="botaoExportarPng" class="botao-retro botao-acao" title="Descarregar imagem PNG no estilo da janela">
+          <svg class="icone-svg" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M2 1h10l2 2v12H2V1zm2 2v4h7V3H4zm1 7v4h6v-4H5zm2 1h2v2H7v-2z" fill="currentColor"/>
+          </svg>
+          <span>Exportar PNG</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Barra de estado clássica no fundo -->
+    <footer class="barra-estado">
+      <div class="estado-caixa estado-esquerda"></div>
+      <div class="estado-caixa estado-direita" id="resumoEstado"></div>
+    </footer>
+  </div>
+
+  <!-- Gaveta lateral para histórico e favoritos -->
+  <div id="gavetaArquivo" class="gaveta escondido" aria-hidden="true">
+    <div class="fundo-gaveta" id="fundoGaveta"></div>
+    <div class="conteudo-gaveta">
+      <div class="cabecalho-gaveta">
+        <h2>Arquivo de Desafios</h2>
+        <button id="botaoFecharGaveta" class="botao-retro botao-fechar" aria-label="Fechar">
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+            <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="separadores-gaveta">
+        <button class="aba-gaveta ativa" data-aba="favoritos">Favoritos (<span id="contagemFavoritos">0</span>)</button>
+        <button class="aba-gaveta" data-aba="historico">Recentes (<span id="contagemHistorico">0</span>)</button>
+      </div>
+
+      <div id="listaGaveta" class="lista-gaveta"></div>
+
+      <div class="rodape-gaveta">
+        <button id="botaoLimparHistorico" class="botao-retro botao-acao pequeno">Limpar recentes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pequeno aviso flutuante -->
+  <div id="avisoFlutuante" class="aviso escondido" role="status" aria-live="polite"></div>
+
+  <!-- Canvas invisível usado para desenhar e descarregar o cartão PNG -->
+  <canvas id="telaExportacao" width="1200" height="675" style="display:none;"></canvas>
+
+  <script src="dados.js"></script>
+  <script src="aplicacao.js"></script>
+</body>
+</html>
